@@ -7,15 +7,15 @@ export default function AdminLogout() {
     const confirmed = window.confirm("Are you sure you want to logout?");
     if (confirmed) {
       localStorage.removeItem("isLoggedIn");
-  localStorage.removeItem("acceptedTerms");
+      localStorage.removeItem("acceptedTerms");
 
-            // 👇 ADD THIS
+            //  AUTH CHANGE
       window.dispatchEvent(new Event("authChanged"));
 
     navigate("/");
        }
   };
-
+ 
   return (
     <button
       onClick={handleLogout}

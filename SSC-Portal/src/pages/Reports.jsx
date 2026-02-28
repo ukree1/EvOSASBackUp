@@ -25,7 +25,7 @@ const Reports = () => {
     <div className="max-w-5xl mx-auto px-4 py-12">
       <h1 className="text-3xl font-bold text-center mb-8">Reports</h1>
 
-      {/* STEP 1 — Choose Card */}
+      {/*  Choose Card */}
       {!selected && (
         <div className="grid md:grid-cols-2 gap-8">
           <div
@@ -54,7 +54,7 @@ const Reports = () => {
         </div>
       )}
 
-      {/* STEP 2 — Show Form */}
+      {/*  Show Form */}
       {selected && (
         <div className="bg-white shadow-lg rounded-2xl p-8 border max-w-xl mx-auto">
           <button
@@ -93,7 +93,7 @@ const Reports = () => {
             className="w-full mb-4"
             onChange={handleChange}
           />
-
+            
           <button
             onClick={handleSubmit}
             className={`w-full text-white p-3 rounded-lg ${

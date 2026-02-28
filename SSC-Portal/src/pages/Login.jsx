@@ -19,13 +19,13 @@ export default function Login() {
     // simulate small delay (optional but smoother UX)
     setTimeout(() => {
       if (email === "admin" && password === "admin") {
-        // ✅ save login
+        //  save login
         localStorage.setItem("isLoggedIn", "true");
 
-        // ✅ IMPORTANT: notify App.jsx to re-render
+        //  IMPORTANT: notify App.jsx to re-render
         window.dispatchEvent(new Event("authChanged"));
 
-        // ✅ go to terms first if not accepted
+        //  go to terms first if not accepted
         const accepted = localStorage.getItem("acceptedTerms");
         if (!accepted) {
           navigate("/terms");
@@ -73,7 +73,9 @@ export default function Login() {
             <p className="text-xs md:text-sm font-serif tracking-widest">
               RECORD
             </p>
-
+            
+              
+            
             <input
               type="text"
               placeholder="Username:"

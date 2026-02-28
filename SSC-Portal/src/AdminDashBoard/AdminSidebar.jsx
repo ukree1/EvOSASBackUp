@@ -20,7 +20,6 @@ export default function AdminSidebar() {
       <div className="absolute inset-0 bg-[#4a5568]/70" />
 
       <div className="relative z-10 p-4 space-y-4 text-white w-full">
-
         {/* Homepage */}
         <div
           onClick={() => navigate("/admin/homepage")}
@@ -44,7 +43,7 @@ export default function AdminSidebar() {
             className="relative bg-[#5a6378]/90 px-4 py-3 rounded-full hover:bg-[#6b7280] cursor-pointer transition text-center"
           >
             Verbal Warning
-            <ChevronDown  
+            <ChevronDown
               size={18}
               className={`absolute right-5 top-1/2 -translate-y-1/2 transition-transform duration-300 ${
                 openDropdown ? "rotate-180" : ""
@@ -106,8 +105,7 @@ export default function AdminSidebar() {
         >
           Approval of Case
         </div>
-
       </div>
-    </div> 
+    </div>
   );
 }

@@ -1,6 +1,4 @@
-// App.jsx
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
@@ -12,92 +10,95 @@ import Reports from "./pages/Reports";
 import Evaluation from "./pages/Evaluation";
 import Login from "./pages/Login";
 
-// Admin Pages
+// Admin Pages (FIXED FOLDER CASE)
 import Terms from "./AdminDashboard/Terms";
-import Homepage from "./AdminDashBoard/Homepage";
+import Homepage from "./AdminDashboard/Homepage";
 
-// ✅ ProtectedRoute for admin pages
+/* AUTH CHECK */
+const isLoggedIn = () => localStorage.getItem("isLoggedIn") === "true";
+const hasAcceptedTerms = () => localStorage.getItem("acceptedTerms") === "true";
+
+/* PROTECTED ROUTE */
 function ProtectedRoute({ children }) {
-  const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-  const accepted = localStorage.getItem("acceptedTerms") === "true";
-
-  if (!isLoggedIn) return <Navigate to="/login" replace />;
-  if (!accepted) return <Navigate to="/terms" replace />;
-
+  if (!isLoggedIn()) return <Navigate to="/login" />;
+  if (!hasAcceptedTerms()) return <Navigate to="/terms" />;
   return children;
 }
 
-// ✅ Layout controller
+/* TERMS ROUTE GUARD */
+function TermsRoute() {
+  if (!isLoggedIn()) return <Navigate to="/login" />;
+  if (hasAcceptedTerms()) return <Navigate to="/admin/homepage" />;
+  return <Terms />;
+}
+
+/* LAYOUT WRAPPER */
 function LayoutWrapper() {
   const location = useLocation();
 
-  // ✅ Check if current route is admin or terms page
   const isAdminRoute =
-    location.pathname.startsWith("/admin") || location.pathname === "/terms";
+    location.pathname.startsWith("/admin") ||
+    location.pathname === "/terms";
 
   return (
     <div className="flex flex-col min-h-screen">
-      {/* Navbar: show only on public pages */}
       {!isAdminRoute && <Navbar />}
 
       <main className="flex-1">
         <Routes>
-          {/* PUBLIC PAGES */}
+
+          {/* PUBLIC ROUTES */}
           <Route path="/" element={<Home />} />
           <Route path="/announcements" element={<Announcements />} />
           <Route path="/about" element={<About />} />
           <Route path="/reports" element={<Reports />} />
           <Route path="/evaluation" element={<Evaluation />} />
-          <Route path="/login" element={<Login />} />
 
-          {/* TERMS PAGE */}
+          {/* LOGIN */}
           <Route
-            path="/terms"
+            path="/login"
             element={
-              localStorage.getItem("isLoggedIn") === "true" &&
-              localStorage.getItem("acceptedTerms") !== "true"
-                ? <Terms />
-                : <Navigate to="/" replace />
-            }
-          />
-
-          {/* ADMIN PAGES */}
-          <Route
-            path="/admin/homepage"
-            element={
-              <ProtectedRoute>
-                <Homepage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/admin/total-case-2025"
-            element={
-              <ProtectedRoute>
-                <Homepage page="total-case-2025" />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/admin/lost-found"
-            element={
-              <ProtectedRoute>
-                <Homepage page="lost-found" />
-              </ProtectedRoute>
+              isLoggedIn()
+                ? hasAcceptedTerms()
+                  ? <Navigate to="/admin/homepage" />
+                  : <Navigate to="/terms" />
+                : <Login />
             }
           />
 
-          {/* FALLBACK */}
-          <Route path="*" element={<Navigate to="/" replace />} />
+          {/* TERMS */}
+          <Route path="/terms" element={<TermsRoute />} />
+
+          {/* ADMIN ROUTES */}
+          <Route path="/admin/homepage" element={<ProtectedRoute><Homepage /></ProtectedRoute>} />
+          <Route path="/admin/fill-up-form" element={<ProtectedRoute><Homepage page="fill-up-form" /></ProtectedRoute>} />
+          <Route path="/admin/written-warning" element={<ProtectedRoute><Homepage page="written-warning" /></ProtectedRoute>} />
+          <Route path="/admin/1st-offense" element={<ProtectedRoute><Homepage page="1st-offense" /></ProtectedRoute>} />
+          <Route path="/admin/2nd-offense" element={<ProtectedRoute><Homepage page="2nd-offense" /></ProtectedRoute>} />
+          <Route path="/admin/3rd-offense" element={<ProtectedRoute><Homepage page="3rd-offense" /></ProtectedRoute>} />
+          <Route path="/admin/article7" element={<ProtectedRoute><Homepage page="article7" /></ProtectedRoute>} />
+          <Route path="/admin/article10" element={<ProtectedRoute><Homepage page="article10" /></ProtectedRoute>} />
+          <Route path="/admin/approval-case" element={<ProtectedRoute><Homepage page="approval-case" /></ProtectedRoute>} />
+          <Route path="/admin/total-case-2025" element={<ProtectedRoute><Homepage page="total-case-2025" /></ProtectedRoute>} />
+          <Route path="/admin/lost-found" element={<ProtectedRoute><Homepage page="lost-found" /></ProtectedRoute>} />
+
+          {/* SMART FALLBACK */}
+          <Route
+            path="*"
+            element={
+              <Navigate to={isLoggedIn() ? "/admin/homepage" : "/"} />
+            }
+          />
+
         </Routes>
       </main>
 
-      {/* Footer: show only on public pages */}
       {!isAdminRoute && <Footer />}
     </div>
   );
 }
 
+/* APP */
 function App() {
   return (
     <Router>

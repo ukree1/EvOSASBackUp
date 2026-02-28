@@ -6,7 +6,7 @@ const QuickCard = ({ title, desc, color = "bg-blue-500", to }) => {
 
   const handleClick = () => {
     if (to) {
-      navigate(to); // navigate to the route
+      navigate(to); // NANAVIGATE NE ING ROUTE
     }
   };
 
