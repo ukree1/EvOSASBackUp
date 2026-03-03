@@ -27,7 +27,7 @@ const Dashboard = ({ openModal }) => {
         <p className="text-blue-100">Stay updated with the latest exams, results, and notifications.</p>
       </section>
 
-      {/* Cards Grid */}
+      {/* Cards  */}
       <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {cardsData.map((card, index) => (
           <Card key={index} {...card} />
@@ -40,7 +40,7 @@ const Dashboard = ({ openModal }) => {
         <Table data={tableData} openModal={openModal} />
       </section>
 
-      {/* Form */}
+      {/* Form ya ini keng login */}
       <section className="bg-white p-4 rounded-lg shadow-md">
         <h3 className="text-lg font-semibold text-gray-800 mb-4">Quick Login</h3>
         <Form />

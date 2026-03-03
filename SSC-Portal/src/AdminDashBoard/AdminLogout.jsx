@@ -10,6 +10,7 @@ export default function AdminLogout() {
       localStorage.removeItem("acceptedTerms");
 
             //  AUTH CHANGE
+            
       window.dispatchEvent(new Event("authChanged"));
 
     navigate("/");

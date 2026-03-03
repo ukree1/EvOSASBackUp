@@ -29,7 +29,7 @@ const Navbar = () => {
           </span>
         </Link>
 
-        {/* Desktop Menu */}
+        {/* Para keng Desktop Menu */}
         <div className="hidden md:flex items-center gap-2 text-sm lg:text-base">
           <Link to="/" className={`px-3 py-2 rounded-lg ${isActive("/")}`}>
             Home
@@ -73,7 +73,7 @@ const Navbar = () => {
           </Link>
         </div>
 
-        {/* Mobile Button */}
+        {/* Para keng Mobile Button */}
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
           className="md:hidden"
@@ -82,7 +82,7 @@ const Navbar = () => {
         </button>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Para keng Mobile Menu */}
       {mobileOpen && (
         <div className="md:hidden border-t text-sm">
           <MobileLink to="/" label="Home" setOpen={setMobileOpen} />
@@ -124,7 +124,7 @@ const Navbar = () => {
   );
 };
 
-/* DESKTOP DROPDOWN (HOVER FIX) */
+/* DESKTOP DROPDOWN  */
 
 const DesktopDropdown = ({ label, items }) => (
   <div className="relative group">

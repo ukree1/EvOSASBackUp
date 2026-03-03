@@ -5,10 +5,13 @@ import osasLogo from "../assets/osas-logo.png";
 import wolfBg from "../assets/wolf.png";
 import AdminLogout from "./AdminLogout";
 
+
+
 export default function Homepage() {
   const navigate = useNavigate();
   const location = useLocation();
   const [openDropdown, setOpenDropdown] = useState(false);
+
 
   /* AUTO OPEN DROPDOWN */
   useEffect(() => {
